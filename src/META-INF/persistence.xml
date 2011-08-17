@@ -3,6 +3,10 @@
   <persistence-unit name="totai3capasPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>datos.Curso</class>
+    <class>datos.Empleado</class>
+    <class>datos.Alumno</class>
+    <class>datos.Docente</class>
+    <class>datos.Edicion</class>
     <properties>
       <property name="hibernate.connection.username" value="app"/>
       <property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.ClientDriver"/>
