@@ -2,57 +2,93 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package datos;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author timoteo
  */
 @Entity
+//@Table(name="Curso")
 public class Curso implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String codigo;
+    private String titulo;
+    private Integer duracionHoras;
+    private String tema;
+    @ManyToMany
+    @JoinTable(name="requisito")
+    private final Set<Curso> requisitos = new HashSet<Curso>();
 
-    public Integer getId() {
-        return id;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Integer getDuracionHoras() {
+        return duracionHoras;
+    }
+
+    public void setDuracionHoras(Integer duracionHoras) {
+        this.duracionHoras = duracionHoras;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Set<Curso> getRequisitos() {
+        return requisitos;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Curso)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Curso other = (Curso) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Curso other = (Curso) obj;
+        if ((this.codigo == null) ? (other.codigo != null) : !this.codigo.equals(other.codigo)) {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
-        return "datos.Curso[id=" + id + "]";
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + (this.codigo != null ? this.codigo.hashCode() : 0);
+        return hash;
     }
-
 }
