@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ControlCurso {
 
-    ManejadorDatos manejadorDatos = new ManejadorDatos();
+    ManejadorDatos manejadorDatos = ManejadorDatos.getInstance();
 
     public String addCurso(String codigo, String titulo, String tema, Integer hora) {
         String resultado;

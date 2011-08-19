@@ -49,6 +49,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("totai3capas");
+        setPreferredSize(new Dimension(400, 400));
         setSize(new Dimension(400, 400));
         getContentPane().add(tabPanel, BorderLayout.CENTER);
 
