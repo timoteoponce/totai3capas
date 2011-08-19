@@ -35,6 +35,20 @@ public class ControlCurso {
         return resultado;
     }
 
+    public String modificarCurso(String codigo, String titulo, String tema, Integer hora) {
+        String resultado;
+        Curso curso = (Curso) manejadorDatos.getById(Curso.class, codigo);
+        if (curso == null) {
+            resultado = "No existe este Curso a Modificar : " + codigo;
+        } else {
+            curso.setTitulo(titulo);
+            curso.setTema(tema);
+            curso.setDuracionHoras(hora);
+            resultado = "Curso Modificado exitosamente" + codigo;
+        }
+        return resultado;
+    }
+
     public List<Object[]> getCursos() {
         List<Curso> cursos = manejadorDatos.list(Curso.class);
         List<Object[]> arrayCursos = new ArrayList<Object[]>();
@@ -42,5 +56,18 @@ public class ControlCurso {
             arrayCursos.add(curso.toArray());
         }
         return arrayCursos;
+    }
+
+    public String delCurso(String codigo) {
+        String resultado;
+        Curso curso = (Curso) manejadorDatos.getById(Curso.class, codigo);
+        if (curso == null) {
+            resultado = "No existe este Curso a Eliminar : " + codigo;
+        } else {
+            curso.getRequisitos().clear();
+            manejadorDatos.delete(curso);
+            resultado = "Curso eliminado exitosamente" + codigo;
+        }
+        return resultado;
     }
 }

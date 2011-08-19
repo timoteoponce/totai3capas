@@ -57,4 +57,8 @@ public class ModeloTabla extends AbstractTableModel {
         this.datos.addAll(datos);
         fireTableDataChanged();
     }
+
+    public Object[] getRow(int indexFila) {
+        return this.datos.get(indexFila); 
+    }
 }

@@ -52,6 +52,7 @@ public class AbmCurso extends javax.swing.JPanel {
         txtTitulo = new javax.swing.JTextField();
         txtTema = new javax.swing.JTextField();
         spinHora = new javax.swing.JSpinner();
+        btnNuevo = new javax.swing.JButton();
 
         tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,6 +65,11 @@ public class AbmCurso extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCursosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCursos);
 
         btnAgregar.setText("Agregar");
@@ -74,8 +80,18 @@ public class AbmCurso extends javax.swing.JPanel {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         lbTema.setText("Tema");
 
@@ -83,11 +99,20 @@ public class AbmCurso extends javax.swing.JPanel {
 
         lbTitulo.setText("Titulo");
 
-        lbHora.setText("Hora");
+        lbHora.setText("Horas");
 
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
+            }
+        });
+
+        spinHora.setValue(5);
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
             }
         });
 
@@ -115,15 +140,17 @@ public class AbmCurso extends javax.swing.JPanel {
                             .add(layout.createSequentialGroup()
                                 .add(lbHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(18, 18, 18)
-                                .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(40, 40, 40)
+                                .add(btnNuevo))))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(layout.createSequentialGroup()
                                 .add(btnAgregar)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(35, 35, 35)
                                 .add(btnModificar)
-                                .add(40, 40, 40)
+                                .add(33, 33, 33)
                                 .add(btnEliminar))
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 375, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(102, Short.MAX_VALUE))
@@ -143,16 +170,18 @@ public class AbmCurso extends javax.swing.JPanel {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lbTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(txtTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(lbHora)
-                    .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(32, 32, 32)
+                .add(18, 18, 18)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(lbHora)
+                        .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(btnNuevo))
+                .add(21, 21, 21)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(34, 34, 34)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnAgregar)
                     .add(btnEliminar)
+                    .add(btnAgregar)
                     .add(btnModificar))
                 .addContainerGap())
         );
@@ -165,10 +194,29 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_txtCodigoActionPerformed
+
+private void tablaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCursosMouseClicked
+    selectCurso();
+}//GEN-LAST:event_tablaCursosMouseClicked
+
+private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+   crearNuevo();
+}//GEN-LAST:event_btnNuevoActionPerformed
+
+private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+// TODO add your handling code here:
+    modificarCurso();
+}//GEN-LAST:event_btnModificarActionPerformed
+
+private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    delCurso();
+}//GEN-LAST:event_btnEliminarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbHora;
@@ -186,6 +234,7 @@ private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     private void cargarDatos() {
+       
         this.modeloCursos.setDatos(controlCurso.getCursos());
     }
 
@@ -206,6 +255,60 @@ private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             cargarDatos();
             JOptionPane.showMessageDialog(this, resultado);
         }
+        btnModificar.setEnabled(false);
+        btnAgregar.setEnabled(true);
 
+    }
+
+    private void selectCurso() {
+        int indexFila = this.tablaCursos.getSelectedRow();
+        if (indexFila > -1) {
+            Object[] fila = this.modeloCursos.getRow(indexFila);
+            this.txtCodigo.setText(fila[0].toString());
+            this.txtTitulo.setText(fila[1] + "");
+            this.txtTema.setText(fila[2] + "");
+            if(fila[3] != null){
+                this.spinHora.setValue(fila[3]);
+            }
+        }
+        btnAgregar.setEnabled(false);
+        btnModificar.setEnabled(true);
+
+    }
+
+    private void crearNuevo() {
+        txtCodigo.setText("");
+        txtTitulo.setText("");
+        txtTema.setText("");
+        btnModificar.setEnabled(false);
+        btnAgregar.setEnabled(true);
+
+    }
+
+    private void modificarCurso() {
+        Integer horas = Integer.parseInt(spinHora.getValue().toString());
+        String codigo = txtCodigo.getText();
+        
+        if (codigo.isEmpty()){
+           JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio");
+        }else{
+            String resultado = controlCurso.modificarCurso(codigo, txtTitulo.getText(), txtTema.getText(), horas);
+            cargarDatos();
+            JOptionPane.showMessageDialog(this, resultado);
+        }
+        
+        btnAgregar.setEnabled(false);
+        btnModificar.setEnabled(true);
+    }
+
+    private void delCurso() {
+        String codigo = txtCodigo.getText();
+        if (codigo.isEmpty()){
+           JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio ");
+        }else{
+            String resultado = controlCurso.delCurso(codigo);
+            cargarDatos();
+            JOptionPane.showMessageDialog(this, resultado);
+        }
     }
 }

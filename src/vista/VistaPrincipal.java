@@ -10,7 +10,16 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -32,21 +41,22 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabPanel = new javax.swing.JTabbedPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        menuItemCursos = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        tabPanel = new JTabbedPane();
+        jMenuBar1 = new JMenuBar();
+        jMenu1 = new JMenu();
+        menuItemCursos = new JMenuItem();
+        jMenu2 = new JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("totai3capas");
-        getContentPane().add(tabPanel, java.awt.BorderLayout.CENTER);
+        setSize(new Dimension(400, 400));
+        getContentPane().add(tabPanel, BorderLayout.CENTER);
 
         jMenu1.setText("Cursos");
 
         menuItemCursos.setText("Editar cursos");
-        menuItemCursos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuItemCursos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 menuItemCursosActionPerformed(evt);
             }
         });
@@ -62,7 +72,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void menuItemCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCursosActionPerformed
+private void menuItemCursosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemCursosActionPerformed
     addTabCurso();
 }//GEN-LAST:event_menuItemCursosActionPerformed
 
@@ -98,15 +108,16 @@ private void menuItemCursosActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
             public void run() {
                 new VistaPrincipal().setVisible(true);
+                
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem menuItemCursos;
-    private javax.swing.JTabbedPane tabPanel;
+    private JMenu jMenu1;
+    private JMenu jMenu2;
+    private JMenuBar jMenuBar1;
+    private JMenuItem menuItemCursos;
+    private JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 
     private void addTabCurso() {
