@@ -6,6 +6,8 @@ package negocio;
 
 import datos.Curso;
 import datos.ManejadorDatos;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,25 +15,32 @@ import datos.ManejadorDatos;
  */
 public class ControlCurso {
 
-    public static void main(String[] args) {
-        ManejadorDatos manejadorDatos = new ManejadorDatos();
+    ManejadorDatos manejadorDatos = new ManejadorDatos();
 
-        Curso curso1 = new Curso();
-        curso1.setCodigo("CU-1");
-        curso1.setDuracionHoras(20);
-        curso1.setTema("tema1");
-        curso1.setTitulo("titulo 1");
-        manejadorDatos.save(curso1);
+    public String addCurso(String codigo, String titulo, String tema, Integer hora) {
+        String resultado;
+        Curso curso = (Curso) manejadorDatos.getById(Curso.class, codigo);
+        if (curso == null) {
+            curso = new Curso();
+            curso.setCodigo(codigo);
+            curso.setTitulo(titulo);
+            curso.setTema(tema);
+            curso.setDuracionHoras(hora);
 
-        Curso curso2 = new Curso();
-        curso2.setCodigo("CU-2");
-        curso2.getRequisitos().add(curso1);
-        manejadorDatos.save(curso2);
+            manejadorDatos.save(curso);
+            resultado = "Curso guardado : " + codigo;
+        } else {
+            resultado = "Curso duplicado : " + codigo;
+        }
+        return resultado;
+    }
 
-        Curso curso3 = new Curso();
-        curso3.setCodigo("CU-3");
-        curso3.getRequisitos().add(curso1);
-        curso3.getRequisitos().add(curso2);
-        manejadorDatos.save(curso3);
+    public List<Object[]> getCursos() {
+        List<Curso> cursos = manejadorDatos.list(Curso.class);
+        List<Object[]> arrayCursos = new ArrayList<Object[]>();
+        for (Curso curso : cursos) {
+            arrayCursos.add(curso.toArray());
+        }
+        return arrayCursos;
     }
 }

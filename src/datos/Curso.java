@@ -91,4 +91,9 @@ public class Curso implements Serializable {
         hash = 31 * hash + (this.codigo != null ? this.codigo.hashCode() : 0);
         return hash;
     }
+
+    
+    public Object[] toArray() {
+        return new Object[]{this.codigo,this.titulo,this.tema,this.duracionHoras};
+    }
 }

@@ -45,13 +45,13 @@ public class ManejadorDatos {
 
     }
 
-    public <T> List<T> list(Class<T> classToFind,String whereQuery) {
-        javax.persistence.Query query = entityManager.createQuery("SELECT t FROM " + classToFind.getSimpleName() + " t "+whereQuery);
+    public <T> List<T> list(Class<T> classToFind, String whereQuery) {
+        javax.persistence.Query query = entityManager.createQuery("SELECT t FROM " + classToFind.getSimpleName() + " t " + whereQuery);
         return query.getResultList();
 
     }
 
-    public Object getById(Class<?> classToFind, Integer id) {
+    public Object getById(Class<?> classToFind, Object id) {
         return entityManager.find(classToFind, id);
     }
 }
