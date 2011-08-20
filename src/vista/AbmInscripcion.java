@@ -11,7 +11,9 @@
 package vista;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import negocio.ControlEdicion;
+import negocio.ControlInscripcion;
 
 /**
  *
@@ -37,20 +39,37 @@ public class AbmInscripcion extends javax.swing.JPanel {
         paneEdicion = new javax.swing.JPanel();
         comboEdicion = new javax.swing.JComboBox();
         btnCancelar = new javax.swing.JButton();
-        btnAceptar = new javax.swing.JButton();
+        btnNueva = new javax.swing.JButton();
+        panelAlumnos = new javax.swing.JPanel();
+        comboAlumnos = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnNueva1 = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 255))); // NOI18N
+        setForeground(new java.awt.Color(0, 0, 0));
 
         paneEdicion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EDICIONES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 0, 204))); // NOI18N
 
         comboEdicion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboEdicion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboEdicionItemStateChanged(evt);
+            }
+        });
+        comboEdicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEdicionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneEdicionLayout = new javax.swing.GroupLayout(paneEdicion);
         paneEdicion.setLayout(paneEdicionLayout);
         paneEdicionLayout.setHorizontalGroup(
             paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneEdicionLayout.createSequentialGroup()
-                .addContainerGap(169, Short.MAX_VALUE)
-                .addComponent(comboEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addComponent(comboEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         paneEdicionLayout.setVerticalGroup(
             paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -59,12 +78,52 @@ public class AbmInscripcion extends javax.swing.JPanel {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Eliminar");
 
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnNueva.setText("Nuevo");
+        btnNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
+                btnNuevaActionPerformed(evt);
+            }
+        });
+
+        panelAlumnos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ALUMNOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 255))); // NOI18N
+
+        comboAlumnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout panelAlumnosLayout = new javax.swing.GroupLayout(panelAlumnos);
+        panelAlumnos.setLayout(panelAlumnosLayout);
+        panelAlumnosLayout.setHorizontalGroup(
+            panelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAlumnosLayout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelAlumnosLayout.setVerticalGroup(
+            panelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAlumnosLayout.createSequentialGroup()
+                .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        btnNueva1.setText("Modificar");
+        btnNueva1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNueva1ActionPerformed(evt);
             }
         });
 
@@ -72,38 +131,81 @@ public class AbmInscripcion extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btnAceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(27, 27, 27))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(paneEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addComponent(paneEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(21, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(btnNueva)
+                .addGap(41, 41, 41)
+                .addComponent(btnNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(paneEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paneEdicion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAceptar))
-                .addGap(40, 40, 40))
+                    .addComponent(btnNueva)
+                    .addComponent(btnNueva1)
+                    .addComponent(btnCancelar))
+                .addGap(93, 93, 93))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+    private void btnNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
         addInscipcion();
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    }//GEN-LAST:event_btnNuevaActionPerformed
+
+    private void btnNueva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNueva1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNueva1ActionPerformed
+
+    private void comboEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEdicionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboEdicionActionPerformed
+
+    private void comboEdicionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEdicionItemStateChanged
+
+       /*  Object dia = comboDias.getSelectedItem();
+        if (!modeloDiasClase.contains(dia)) {
+            modeloDiasClase.addElement(dia);
+        }*/
+        Object edicion = comboEdicion.getSelectedItem();
+        if (edicion != null){
+            loadAlumnosNoIscritos((String) edicion);
+        } else
+            JOptionPane.showMessageDialog(this,"Debe seleccionar un Grupo");
+
+        
+    }//GEN-LAST:event_comboEdicionItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnNueva;
+    private javax.swing.JButton btnNueva1;
+    private javax.swing.JComboBox comboAlumnos;
     private javax.swing.JComboBox comboEdicion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel paneEdicion;
+    private javax.swing.JPanel panelAlumnos;
     // End of variables declaration//GEN-END:variables
 
     private void addInscipcion() {
@@ -117,6 +219,19 @@ public class AbmInscripcion extends javax.swing.JPanel {
         for (Object[] item : ediciones) {
             this.comboEdicion.addItem(item[0]);
         }
+    }
+// Carga los alumnos no inscritos en una deteminada edcion
+    private void loadAlumnosNoIscritos(String edicion){
+        this.comboAlumnos.removeAllItems();
+        ControlInscripcion controlInscripcion = new ControlInscripcion();
+        List<Object[]> alumNoInscritos = controlInscripcion.getNoInscritos(edicion);
+        for (Object[] item : alumNoInscritos) {
+            this.comboAlumnos.addItem(item[0]);
+        }
+
+    }
+    private void loadAlumnosInscritos(){
+
     }
 
     private void init() {
