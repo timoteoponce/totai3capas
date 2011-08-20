@@ -50,6 +50,12 @@ public class ManejadorDatos {
         return query.getResultList();
 
     }
+    
+    public <T> List<T> list(String queryString) {
+        javax.persistence.Query query = entityManager.createQuery(queryString);
+        return query.getResultList();
+
+    }
 
     public <T>T getById(Class<?> classToFind, Object id) {
         return (T) entityManager.find(classToFind, id);

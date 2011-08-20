@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -26,8 +24,7 @@ public class Edicion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -42,11 +39,11 @@ public class Edicion implements Serializable {
     @JoinTable(name = "dias_clase")
     private Set<Dia> diasClase = new HashSet<Dia>();
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -116,6 +113,10 @@ public class Edicion implements Serializable {
 
     @Override
     public String toString() {
-        return "datos.Edicio[id=" + id + "]";
+        return "datos.Edicion[id=" + id + "]";
+    }
+    
+    public Object[] toArray(){
+        return new Object[]{this.id,this.curso.getCodigo(),this.docente.getNombre(),this.aula.getId(),this.getFechaInicio(),this.fechaFin};
     }
 }

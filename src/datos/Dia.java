@@ -54,4 +54,8 @@ public class Dia implements Serializable {
         hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
+    
+    public Object[] toArray(){
+        return new Object[]{this.id};
+    }
 }
