@@ -18,9 +18,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
+import org.jdesktop.layout.GroupLayout;
+import org.jdesktop.layout.LayoutStyle;
 
 /**
  *
@@ -43,6 +47,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         tabPanel = new JTabbedPane();
+        jToolBar1 = new JToolBar();
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
         menuItemCursos = new JMenuItem();
@@ -56,7 +61,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("totai3capas");
-        getContentPane().add(tabPanel, BorderLayout.CENTER);
+
+        jToolBar1.setRollover(true);
 
         jMenu1.setText("Cursos");
 
@@ -115,6 +121,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jToolBar1, GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+            .add(GroupLayout.TRAILING, tabPanel, GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.LEADING)
+            .add(GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(tabPanel, GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(jToolBar1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -186,6 +207,7 @@ private void menuItemInscripcionActionPerformed(ActionEvent evt) {//GEN-FIRST:ev
     private JMenu jMenu3;
     private JMenu jMenu4;
     private JMenuBar jMenuBar1;
+    private JToolBar jToolBar1;
     private JMenuItem menuItemAulas;
     private JMenuItem menuItemCursos;
     private JMenuItem menuItemEdiciones;
