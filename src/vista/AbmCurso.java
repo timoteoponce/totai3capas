@@ -12,7 +12,6 @@ package vista;
 
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import negocio.ControlCurso;
 
@@ -347,12 +346,14 @@ private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//G
             if (fila[3] != null) {
                 this.spinHora.setValue(fila[3]);
             }
+            this.txtCodigo.setEditable(false);
         }
         enableModificar(true);
         loadRequisitos();
     }
 
     private void crearNuevo() {
+        this.txtCodigo.setEditable(true);
         txtCodigo.setText("");
         txtTitulo.setText("");
         txtTema.setText("");

@@ -52,7 +52,6 @@ public class ControlAula {
         if (aula == null) {
             resultado = "Aula inexistente: " + id;
         } else {
-            aula.setId(id);
             aula.setCapacidad(capacidad);
             manejadorDatos.save(aula);
             resultado = "Aula guardada : " + id;

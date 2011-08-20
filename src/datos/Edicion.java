@@ -33,7 +33,7 @@ public class Edicion implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaFin;
     @ManyToOne
-    private Docente docente;
+    private Empleado docente;
     @ManyToOne
     private Curso curso;
     @ManyToOne
@@ -50,11 +50,11 @@ public class Edicion implements Serializable {
         this.id = id;
     }
 
-    public Docente getDocente() {
+    public Empleado getDocente() {
         return docente;
     }
 
-    public void setDocente(Docente docente) {
+    public void setDocente(Empleado docente) {
         this.docente = docente;
     }
 

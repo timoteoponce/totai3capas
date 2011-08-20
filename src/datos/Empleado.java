@@ -2,15 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package datos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,18 +21,17 @@ import javax.persistence.TemporalType;
  * @author timoteo
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Empleado implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ci;
-
     private String nombre;
-
     @Temporal(TemporalType.DATE)
     private Date fechaIngreso;
-
+    @OneToMany(mappedBy = "docente")
+    private Set<Edicion> ediciones = new HashSet<Edicion>();
 
     public Integer getCi() {
         return ci;
@@ -56,7 +57,9 @@ public class Empleado implements Serializable {
         this.nombre = nombre;
     }
 
-
+    public Set<Edicion> getEdiciones() {
+        return ediciones;
+    }
 
     @Override
     public int hashCode() {
@@ -83,6 +86,7 @@ public class Empleado implements Serializable {
         return "Empleado{" + "ci=" + ci + "nombre=" + nombre + "fechaIngreso=" + fechaIngreso + '}';
     }
 
-   
-
+    public Object[] toArray() {
+        return new Object[]{this.ci, this.nombre, this.fechaIngreso};
+    }
 }

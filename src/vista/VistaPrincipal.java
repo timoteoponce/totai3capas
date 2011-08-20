@@ -11,7 +11,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
@@ -47,6 +46,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         menuItemCursos = new JMenuItem();
         jMenu2 = new JMenu();
         menuItemAulas = new JMenuItem();
+        jMenu3 = new JMenu();
+        jMenuItem1 = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("totai3capas");
@@ -76,6 +77,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Empleados");
+
+        jMenuItem1.setText("Editar empleados");
+        jMenuItem1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -88,6 +101,10 @@ private void menuItemCursosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_m
 private void menuItemAulasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemAulasActionPerformed
     addTabAulas();
 }//GEN-LAST:event_menuItemAulasActionPerformed
+
+private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    addTabEmpleados();
+}//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,14 +138,16 @@ private void menuItemAulasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_me
 
             public void run() {
                 new VistaPrincipal().setVisible(true);
-                
+
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenu jMenu1;
     private JMenu jMenu2;
+    private JMenu jMenu3;
     private JMenuBar jMenuBar1;
+    private JMenuItem jMenuItem1;
     private JMenuItem menuItemAulas;
     private JMenuItem menuItemCursos;
     private JTabbedPane tabPanel;
@@ -142,5 +161,10 @@ private void menuItemAulasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_me
     private void addTabAulas() {
         AbmAula tabAula = new AbmAula();
         this.tabPanel.addTab("Aulas", new JScrollPane(tabAula));
+    }
+
+    private void addTabEmpleados() {
+        AbmEmpleado tabEmpleado = new AbmEmpleado();
+        this.tabPanel.addTab("Empleados", new JScrollPane(tabEmpleado));
     }
 }
