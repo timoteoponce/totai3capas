@@ -6,8 +6,6 @@ package negocio;
 
 import datos.Aula;
 import datos.ManejadorDatos;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
