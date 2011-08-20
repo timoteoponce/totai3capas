@@ -13,6 +13,8 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -48,6 +50,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         menuItemAulas = new JMenuItem();
         jMenu3 = new JMenu();
         jMenuItem1 = new JMenuItem();
+        jMenu4 = new JMenu();
+        menuItemInscripcion = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("totai3capas");
@@ -56,6 +60,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Cursos");
 
         menuItemCursos.setText("Editar cursos");
+        menuItemCursos.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                menuItemCursosMouseClicked(evt);
+            }
+        });
         menuItemCursos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 menuItemCursosActionPerformed(evt);
@@ -64,8 +73,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuItemCursos);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Ediciones y aulas");
 
         menuItemAulas.setText("Editar aulas");
         menuItemAulas.addActionListener(new ActionListener() {
@@ -89,6 +96,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setText("Inscripcion");
+
+        menuItemInscripcion.setText("Editar Inscripcion");
+        menuItemInscripcion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItemInscripcionActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuItemInscripcion);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -105,6 +124,14 @@ private void menuItemAulasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_me
 private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     addTabEmpleados();
 }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+private void menuItemCursosMouseClicked(MouseEvent evt) {//GEN-FIRST:event_menuItemCursosMouseClicked
+    // TODO add your handling code here:
+}//GEN-LAST:event_menuItemCursosMouseClicked
+
+private void menuItemInscripcionActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemInscripcionActionPerformed
+    addTabInscripcion();
+}//GEN-LAST:event_menuItemInscripcionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,10 +173,12 @@ private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenu
     private JMenu jMenu1;
     private JMenu jMenu2;
     private JMenu jMenu3;
+    private JMenu jMenu4;
     private JMenuBar jMenuBar1;
     private JMenuItem jMenuItem1;
     private JMenuItem menuItemAulas;
     private JMenuItem menuItemCursos;
+    private JMenuItem menuItemInscripcion;
     private JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 
@@ -166,5 +195,11 @@ private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenu
     private void addTabEmpleados() {
         AbmEmpleado tabEmpleado = new AbmEmpleado();
         this.tabPanel.addTab("Empleados", new JScrollPane(tabEmpleado));
+    }
+
+    private void addTabInscripcion(){
+        AbmInscripcion tabInscripcion = new AbmInscripcion();
+        this.tabPanel.addTab("Inscripcion", new JScrollPane(tabInscripcion));
+
     }
 }
