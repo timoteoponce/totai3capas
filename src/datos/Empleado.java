@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Empleado implements Serializable {
+public class Empleado implements Serializable,Entidad {
 
     private static final long serialVersionUID = 1L;
     @Id

@@ -4,8 +4,7 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>datos.Curso</class>
     <class>datos.Empleado</class>
-    <class>datos.Alumno</class>
-    <class>datos.Docente</class>
+    <class>datos.Dia</class>
     <class>datos.Edicion</class>
     <class>datos.Inscripcion</class>
     <properties>

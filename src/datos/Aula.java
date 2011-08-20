@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
  * @author timoteo
  */
 @Entity
-public class Aula implements Serializable {
+public class Aula implements Serializable,Entidad {
 
     private static final long serialVersionUID = 1L;
     @Id

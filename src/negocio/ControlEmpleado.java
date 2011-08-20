@@ -20,15 +20,7 @@ public class ControlEmpleado {
     private ManejadorDatos manejadorDatos = ManejadorDatos.getInstance();
 
     public List<Object[]> getEmpleados() {
-        return toArrayList(manejadorDatos.list(Empleado.class));
-    }
-
-    private List<Object[]> toArrayList(Collection<Empleado> empleados) {
-        List<Object[]> arrayCursos = new ArrayList<Object[]>();
-        for (Empleado item : empleados) {
-            arrayCursos.add(item.toArray());
-        }
-        return arrayCursos;
+        return Utils.toArrayList(manejadorDatos.list(Empleado.class));
     }
 
     public String addEmpleado(Integer ci, String nombre, Date fechaIngreso) {
@@ -91,9 +83,9 @@ public class ControlEmpleado {
             docentes = manejadorDatos.list(Empleado.class);
         } else {
             docentes = manejadorDatos.list("SELECT e FROM Empleado e WHERE e.ci NOT IN (SELECT i.inscripcionPK.idAlumno from Inscripcion i "
-                    + "WHERE i.inscripcionPK.idEdicion = " + edicion + "')");
+                    + "WHERE i.inscripcionPK.idEdicion = '" + edicion + "')");
         }
-        return toArrayList(docentes);
+        return Utils.toArrayList(docentes);
     }
 
     public List<Object[]> getNoInscritos(String edicion) {
@@ -102,9 +94,9 @@ public class ControlEmpleado {
             noInscritos = manejadorDatos.list(Empleado.class);
         } else {
             noInscritos = manejadorDatos.list("SELECT e FROM Empleado e "
-                    + "WHERE e.ci NOT IN (SELECT i.inscripcionPK.idAlumno from Inscripcion i WHERE i.inscripcionPK.idEdicion = " + edicion + "') "
+                    + "WHERE e.ci NOT IN (SELECT i.inscripcionPK.idAlumno from Inscripcion i WHERE i.inscripcionPK.idEdicion = '" + edicion + "') "
                     + "AND e.ci NOT IN (SELECT ed.docente.ci FROM Edicion ed WHERE ed.id='" + edicion + "' )");
         }
-        return toArrayList(noInscritos);
+        return Utils.toArrayList(noInscritos);
     }
 }

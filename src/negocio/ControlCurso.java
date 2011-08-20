@@ -57,7 +57,7 @@ public class ControlCurso {
 
     public List<Object[]> getCursos() {
         List<Curso> cursos = manejadorDatos.list(Curso.class);
-        return toArrayList(cursos);
+        return Utils.toArrayList(cursos);
     }
 
     public String delCurso(String codigo) {
@@ -79,17 +79,9 @@ public class ControlCurso {
         if (curso == null) {
             resultado = Collections.EMPTY_LIST;
         } else {
-            resultado = toArrayList(curso.getRequisitos());
+            resultado = Utils.toArrayList(curso.getRequisitos());
         }
         return resultado;
-    }
-
-    private List<Object[]> toArrayList(Collection<Curso> cursos) {
-        List<Object[]> arrayCursos = new ArrayList<Object[]>();
-        for (Curso curso : cursos) {
-            arrayCursos.add(curso.toArray());
-        }
-        return arrayCursos;
     }
 
     public List<Object[]> filtrarCursos(Object[] arrayCodigos) {
@@ -105,7 +97,7 @@ public class ControlCurso {
             }
             buffer.append(")");
         }
-        return toArrayList(manejadorDatos.list(Curso.class, buffer.toString()));
+        return Utils.toArrayList(manejadorDatos.list(Curso.class, buffer.toString()));
     }
 
     private void setRequisitos(Curso curso, Object[] requisitos) {

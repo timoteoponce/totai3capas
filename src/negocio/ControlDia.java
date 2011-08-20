@@ -8,8 +8,6 @@ package negocio;
 import datos.Dia;
 import datos.DiaEnum;
 import datos.ManejadorDatos;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -34,14 +32,7 @@ public class ControlDia {
     public List<Object[]> getDias() {
         init();
         List<Dia> dias = manejadorDatos.list(Dia.class);
-        return toArrayList(dias);
+        return Utils.toArrayList(dias);
     }
     
-    private List<Object[]> toArrayList(Collection<Dia> items) {
-        List<Object[]> arrayCursos = new ArrayList<Object[]>();
-        for (Dia item : items) {
-            arrayCursos.add(item.toArray());
-        }
-        return arrayCursos;
-    }
 }

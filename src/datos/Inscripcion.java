@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
  * @author timoteo
  */
 @Entity
-public class Inscripcion implements Serializable {
+public class Inscripcion implements Serializable,Entidad {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -70,5 +70,9 @@ public class Inscripcion implements Serializable {
         int hash = 3;
         hash = 13 * hash + (this.inscripcionPK != null ? this.inscripcionPK.hashCode() : 0);
         return hash;
+    }
+
+    public Object[] toArray() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

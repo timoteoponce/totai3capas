@@ -10,10 +10,14 @@
  */
 package vista;
 
+import java.awt.Component;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.text.MaskFormatter;
 import negocio.ControlAula;
 import negocio.ControlCurso;
@@ -26,7 +30,7 @@ import negocio.ControlEmpleado;
  * @author oscarribera
  */
 public class AbmEdicion extends javax.swing.JPanel {
-    
+
     private ModeloTabla modeloEdiciones = new ModeloTabla(new String[]{"id", "curso", "docente", "aula", "fechaInicio", "fechaFin"});
     private DefaultListModel modeloDiasClase = new DefaultListModel();
     private ControlEdicion controlEdicion = new ControlEdicion();
@@ -215,6 +219,11 @@ public class AbmEdicion extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaEdiciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaEdicionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaEdiciones);
 
         btnNuevo.setText("Nuevo");
@@ -267,22 +276,25 @@ public class AbmEdicion extends javax.swing.JPanel {
 
 private void btnAddDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDiaActionPerformed
     addDiaClase();
-    
+
 }//GEN-LAST:event_btnAddDiaActionPerformed
-    
+
 private void btnDelDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelDiaActionPerformed
     delDiaClase();
-    
+
 }//GEN-LAST:event_btnDelDiaActionPerformed
-    
+
 private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
     nuevo();
 }//GEN-LAST:event_btnNuevoActionPerformed
 
 private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-   agregar();
+    agregar();
 }//GEN-LAST:event_btnAgregarActionPerformed
 
+private void tablaEdicionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEdicionesMouseClicked
+    select();
+}//GEN-LAST:event_tablaEdicionesMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddDia;
     private javax.swing.JButton btnAgregar;
@@ -315,20 +327,21 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private void init() {
         this.tablaEdiciones.setModel(modeloEdiciones);
         this.listDiasClase.setModel(modeloDiasClase);
+        this.comboDocentes.setRenderer(new DocenteComboRenderer());
         cargarDatos();
         cargarCombos();
     }
-    
+
     private void cargarDatos() {
         this.modeloEdiciones.setDatos(controlEdicion.getEdiciones());
     }
-    
+
     private void cargarCombos() {
         ControlAula controlAula = new ControlAula();
-        ControlDia controlDia = new ControlDia();        
+        ControlDia controlDia = new ControlDia();
         ControlCurso controlCurso = new ControlCurso();
-        
-        
+
+
         this.comboAulas.removeAllItems();
         for (Object[] item : controlAula.getAulas()) {
             this.comboAulas.addItem(item[0]);
@@ -345,37 +358,38 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         loadComboDocentes();
     }
-    
+
     private void loadComboDocentes() {
         this.comboDocentes.removeAllItems();
         String edicion = this.txtId.getText();
         for (Object[] item : controlEmpleado.getDocentes(edicion)) {
-            this.comboDocentes.addItem(item[1]);
+            this.comboDocentes.addItem(item);
         }
     }
-    
+
     private void addDiaClase() {
         Object dia = comboDias.getSelectedItem();
         if (!modeloDiasClase.contains(dia)) {
             modeloDiasClase.addElement(dia);
-        }        
+        }
     }
-    
+
     private void delDiaClase() {
         Object dia = listDiasClase.getSelectedValue();
         if (dia != null) {
             modeloDiasClase.removeElement(dia);
         }
     }
-    
+
     private void nuevo() {
         enableModificar(false);
+        txtId.setEditable(true);
         this.txtId.setText("");
         this.dateInicio.setDate(new Date());
         this.dateFin.setDate(new Date());
         this.modeloDiasClase.clear();
     }
-    
+
     private void enableModificar(boolean enable) {
         this.btnAgregar.setEnabled(!enable);
         this.btnModificar.setEnabled(enable);
@@ -383,8 +397,56 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
 
     private void agregar() {
-        if(txtId.getText().isEmpty() || dateFin.getDate().before(dateInicio.getDate()) || modeloDiasClase.isEmpty()){
-            
+        if (txtId.getText().isEmpty() || dateFin.getDate().before(dateInicio.getDate()) || modeloDiasClase.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Datos invalidos");
+        } else {
+            Object[] docente = (Object[]) comboDocentes.getSelectedItem();
+            Integer docenteId = (Integer) docente[0];
+            String cursoId = comboCursos.getSelectedItem().toString();
+            String aulaId = comboAulas.getSelectedItem().toString();
+            Object[] diasClase = modeloDiasClase.toArray();
+            String resultado = controlEdicion.addEdicion(this.txtId.getText(), cursoId, docenteId, aulaId, dateInicio.getDate(), dateFin.getDate(), diasClase);
+            cargarDatos();
+            JOptionPane.showMessageDialog(this, resultado);
+        }
+    }
+
+    private void select() {
+        int index = tablaEdiciones.getSelectedRow();
+        if (index > -1) {
+            enableModificar(true);
+            txtId.setEditable(false);
+            txtId.setText(modeloEdiciones.getValueAt(index, 0).toString());
+            dateInicio.setDate((Date) modeloEdiciones.getValueAt(index, 4));
+            dateFin.setDate((Date) modeloEdiciones.getValueAt(index, 5));
+            comboCursos.setSelectedItem(modeloEdiciones.getValueAt(index, 1));
+            comboAulas.setSelectedItem(modeloEdiciones.getValueAt(index, 3));
+            loadComboDocentes();
+            loadDiasClase(modeloEdiciones.getValueAt(index, 0).toString());
+        }
+    }
+
+    private void loadDiasClase(String edicion) {
+        modeloDiasClase.clear();
+        for(Object[] item:controlEdicion.getDiasClase(edicion)){
+            modeloDiasClase.addElement(item[0]);
+        }
+    }
+
+    private class DocenteComboRenderer extends JLabel implements ListCellRenderer {
+
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+            if (isSelected) {
+                setBackground(list.getSelectionBackground());
+                setForeground(list.getSelectionForeground());
+            } else {
+                setBackground(list.getBackground());
+                setForeground(list.getForeground());
+            }
+            Object[] selected = (Object[]) value;
+            setText(selected[1].toString());
+            return this;
         }
     }
 }
