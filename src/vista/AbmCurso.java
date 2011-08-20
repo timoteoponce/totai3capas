@@ -10,6 +10,9 @@
  */
 package vista;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import negocio.ControlCurso;
@@ -21,12 +24,12 @@ import negocio.ControlCurso;
 public class AbmCurso extends javax.swing.JPanel {
 
     private ModeloTabla modeloCursos = new ModeloTabla(new String[]{"codigo", "titulo", "tema", "horas"});
+    private DefaultListModel modeloRequisitos = new DefaultListModel();
     private ControlCurso controlCurso = new ControlCurso();
 
     /** Creates new form AbmCurso */
     public AbmCurso() {
         initComponents();
-        this.tablaCursos.setModel(modeloCursos);
         init();
     }
 
@@ -41,9 +44,6 @@ public class AbmCurso extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCursos = new javax.swing.JTable();
-        btnAgregar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         lbTema = new javax.swing.JLabel();
         lbCodigo = new javax.swing.JLabel();
         lbTitulo = new javax.swing.JLabel();
@@ -52,11 +52,17 @@ public class AbmCurso extends javax.swing.JPanel {
         txtTitulo = new javax.swing.JTextField();
         txtTema = new javax.swing.JTextField();
         spinHora = new javax.swing.JSpinner();
-        btnNuevo = new javax.swing.JButton();
+        panelRequisitos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        listaRequisitos = new javax.swing.JList();
+        comboCursos = new javax.swing.JComboBox();
+        btnAddRequisito = new javax.swing.JButton();
+        btnDelRequisito = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btnNuevo = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -76,27 +82,6 @@ public class AbmCurso extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tablaCursos);
 
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         lbTema.setText("Tema");
 
         lbCodigo.setText("Código");
@@ -113,23 +98,96 @@ public class AbmCurso extends javax.swing.JPanel {
 
         spinHora.setValue(5);
 
+        panelRequisitos.setBorder(javax.swing.BorderFactory.createTitledBorder("Requisitos"));
+
+        listaRequisitos.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        listaRequisitos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaRequisitosValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listaRequisitos);
+
+        comboCursos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnAddRequisito.setText("Agregar");
+        btnAddRequisito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddRequisitoActionPerformed(evt);
+            }
+        });
+
+        btnDelRequisito.setText("Quitar");
+        btnDelRequisito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelRequisitoActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout panelRequisitosLayout = new org.jdesktop.layout.GroupLayout(panelRequisitos);
+        panelRequisitos.setLayout(panelRequisitosLayout);
+        panelRequisitosLayout.setHorizontalGroup(
+            panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelRequisitosLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(btnDelRequisito, 0, 0, Short.MAX_VALUE)
+                    .add(comboCursos, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(btnAddRequisito, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(11, 11, 11)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        panelRequisitosLayout.setVerticalGroup(
+            panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelRequisitosLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .add(panelRequisitosLayout.createSequentialGroup()
+                        .add(comboCursos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnAddRequisito)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnDelRequisito)))
+                .addContainerGap())
+        );
+
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
+        jPanel2.add(btnNuevo);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
         });
-        jScrollPane2.setViewportView(jList1);
+        jPanel2.add(btnAgregar);
 
-        jButton1.setText("Agregar requisito");
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnModificar);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEliminar);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -138,85 +196,59 @@ public class AbmCurso extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(layout.createSequentialGroup()
-                                .add(btnAgregar)
-                                .add(35, 35, 35)
-                                .add(btnModificar)
-                                .add(33, 33, 33)
-                                .add(btnEliminar))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 375, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(layout.createSequentialGroup()
                         .add(28, 28, 28)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(layout.createSequentialGroup()
-                                        .add(lbCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(18, 18, 18)
-                                        .add(txtCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(layout.createSequentialGroup()
-                                        .add(lbTitulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(18, 18, 18)
-                                        .add(txtTitulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(layout.createSequentialGroup()
-                                        .add(lbTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(18, 18, 18)
-                                        .add(txtTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(layout.createSequentialGroup()
-                                        .add(lbHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(18, 18, 18)
-                                        .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(40, 40, 40)
-                                        .add(btnNuevo)))
-                                .add(10, 10, 10)
-                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(lbCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(txtCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(lbTitulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(txtTitulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(lbTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(txtTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(6, 6, 6)
+                                .add(lbHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jButton1)))))
+                                .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, panelRequisitos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, 0, 0, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lbCodigo)
-                            .add(txtCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lbTitulo)
-                            .add(txtTitulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lbTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(txtTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(18, 18, 18)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(lbHora)
-                                .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(btnNuevo)))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(38, 38, 38)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jScrollPane2))))
-                .add(21, 21, 21)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(34, 34, 34)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnEliminar)
-                    .add(btnAgregar)
-                    .add(btnModificar))
-                .addContainerGap())
             .add(layout.createSequentialGroup()
-                .add(80, 80, 80)
-                .add(jButton1)
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lbCodigo)
+                    .add(txtCodigo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lbTitulo)
+                    .add(txtTitulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lbTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(txtTema, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(spinHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lbHora))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(panelRequisitos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 161, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -233,7 +265,7 @@ private void tablaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_tablaCursosMouseClicked
 
 private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-   crearNuevo();
+    crearNuevo();
 }//GEN-LAST:event_btnNuevoActionPerformed
 
 private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -245,20 +277,34 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     delCurso();
 }//GEN-LAST:event_btnEliminarActionPerformed
 
+private void btnAddRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRequisitoActionPerformed
+    addRequisito();
+}//GEN-LAST:event_btnAddRequisitoActionPerformed
+
+private void listaRequisitosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaRequisitosValueChanged
+}//GEN-LAST:event_listaRequisitosValueChanged
+
+private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelRequisitoActionPerformed
+    delRequisito();
+}//GEN-LAST:event_btnDelRequisitoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddRequisito;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnDelRequisito;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JList jList1;
+    private javax.swing.JComboBox comboCursos;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbHora;
     private javax.swing.JLabel lbTema;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JList listaRequisitos;
+    private javax.swing.JPanel panelRequisitos;
     private javax.swing.JSpinner spinHora;
     private javax.swing.JTable tablaCursos;
     private javax.swing.JTextField txtCodigo;
@@ -267,11 +313,15 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     // End of variables declaration//GEN-END:variables
 
     private void init() {
+        this.tablaCursos.setModel(modeloCursos);
+        this.listaRequisitos.setModel(modeloRequisitos);
+        this.modeloRequisitos.clear();
+        this.comboCursos.removeAllItems();
         cargarDatos();
+        loadRequisitos();
     }
 
     private void cargarDatos() {
-       
         this.modeloCursos.setDatos(controlCurso.getCursos());
     }
 
@@ -288,13 +338,12 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         if (codigo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio");
         } else {
-            String resultado = controlCurso.addCurso(codigo, txtTitulo.getText(), txtTema.getText(), horas);
+            String resultado = controlCurso.addCurso(codigo, txtTitulo.getText(), txtTema.getText(), horas, modeloRequisitos.toArray());
             cargarDatos();
             JOptionPane.showMessageDialog(this, resultado);
         }
         btnModificar.setEnabled(false);
         btnAgregar.setEnabled(true);
-
     }
 
     private void selectCurso() {
@@ -304,13 +353,13 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             this.txtCodigo.setText(fila[0].toString());
             this.txtTitulo.setText(fila[1] + "");
             this.txtTema.setText(fila[2] + "");
-            if(fila[3] != null){
+            if (fila[3] != null) {
                 this.spinHora.setValue(fila[3]);
             }
         }
         btnAgregar.setEnabled(false);
         btnModificar.setEnabled(true);
-
+        loadRequisitos();
     }
 
     private void crearNuevo() {
@@ -319,33 +368,73 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         txtTema.setText("");
         btnModificar.setEnabled(false);
         btnAgregar.setEnabled(true);
-
+        loadRequisitos();
     }
 
     private void modificarCurso() {
         Integer horas = Integer.parseInt(spinHora.getValue().toString());
         String codigo = txtCodigo.getText();
-        
-        if (codigo.isEmpty()){
-           JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio");
-        }else{
-            String resultado = controlCurso.modificarCurso(codigo, txtTitulo.getText(), txtTema.getText(), horas);
+
+        if (codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio");
+        } else {
+            String resultado = controlCurso.modificarCurso(codigo, txtTitulo.getText(), txtTema.getText(), horas, modeloRequisitos.toArray());
             cargarDatos();
             JOptionPane.showMessageDialog(this, resultado);
         }
-        
+
         btnAgregar.setEnabled(false);
         btnModificar.setEnabled(true);
     }
 
     private void delCurso() {
         String codigo = txtCodigo.getText();
-        if (codigo.isEmpty()){
-           JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio ");
-        }else{
+        if (codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campo Codigo no debe estar vacio ");
+        } else {
             String resultado = controlCurso.delCurso(codigo);
             cargarDatos();
             JOptionPane.showMessageDialog(this, resultado);
+        }
+    }
+
+    private void loadRequisitos() {
+        this.comboCursos.removeAllItems();
+        this.modeloRequisitos.clear();
+        List<Object[]> requisitos = controlCurso.getRequisitos(txtCodigo.getText());
+
+        boolean isModificacion = !this.txtCodigo.getText().isEmpty();
+        if (isModificacion) {
+            this.modeloRequisitos.addElement(this.txtCodigo.getText());
+        }
+
+        for (Object[] item : requisitos) {
+            this.modeloRequisitos.addElement(item[0]);
+        }
+
+        Object[] codigosExistentes = modeloRequisitos.toArray();
+        List<Object[]> cursosDisponibles = controlCurso.filtrarCursos(codigosExistentes);
+        for (Object[] item : cursosDisponibles) {
+            this.comboCursos.addItem(item[0]);
+        }
+        if (isModificacion) {
+            this.modeloRequisitos.removeElement(this.txtCodigo.getText());
+        }
+    }
+
+    private void addRequisito() {
+        Object requisito = comboCursos.getSelectedItem();
+        if (requisito != null) {
+            this.modeloRequisitos.addElement(requisito);
+            this.comboCursos.removeItem(requisito);
+        }
+    }
+
+    private void delRequisito() {
+        Object requisito = listaRequisitos.getSelectedValue();
+        if(requisito != null){
+            this.modeloRequisitos.removeElement(requisito);
+            this.comboCursos.addItem(requisito);
         }
     }
 }

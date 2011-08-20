@@ -51,7 +51,7 @@ public class ManejadorDatos {
 
     }
 
-    public Object getById(Class<?> classToFind, Object id) {
-        return entityManager.find(classToFind, id);
+    public <T>T getById(Class<?> classToFind, Object id) {
+        return (T) entityManager.find(classToFind, id);
     }
 }
