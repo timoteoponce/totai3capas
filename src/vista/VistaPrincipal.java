@@ -48,9 +48,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         menuItemCursos = new JMenuItem();
         jMenu2 = new JMenu();
         menuItemAulas = new JMenuItem();
-        jMenuItem2 = new JMenuItem();
+        menuItemEdiciones = new JMenuItem();
         jMenu3 = new JMenu();
-        jMenuItem1 = new JMenuItem();
+        menuItemEmpleados = new JMenuItem();
         jMenu4 = new JMenu();
         menuItemInscripcion = new JMenuItem();
 
@@ -60,20 +60,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cursos");
 
-        menuItemCursos.setText("Editar cursos");
-        menuItemCursos.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                menuItemCursosMouseClicked(evt);
-            }
-        });
         menuItemCursos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                menuItemCursosActionPerformed(evt);
+                menuItemCursosActionPerformed1(evt);
             }
         });
         jMenu1.add(menuItemCursos);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Aulas y ediciones");
 
         menuItemAulas.setText("Editar aulas");
         menuItemAulas.addActionListener(new ActionListener() {
@@ -83,25 +79,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(menuItemAulas);
 
-        jMenuItem2.setText("Editar ediciones");
-        jMenuItem2.addActionListener(new ActionListener() {
+        menuItemEdiciones.setText("Editar ediciones");
+        menuItemEdiciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuItemEdicionesActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(menuItemEdiciones);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Empleados");
 
-        jMenuItem1.setText("Editar empleados");
-        jMenuItem1.addActionListener(new ActionListener() {
+        menuItemEmpleados.setText("Editar empleados");
+        menuItemEmpleados.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuItemEmpleadosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu3.add(menuItemEmpleados);
 
         jMenuBar1.add(jMenu3);
 
@@ -130,14 +126,22 @@ private void menuItemAulasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_me
     addTabAulas();
 }//GEN-LAST:event_menuItemAulasActionPerformed
 
-private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+private void menuItemEmpleadosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemEmpleadosActionPerformed
     addTabEmpleados();
-}//GEN-LAST:event_jMenuItem1ActionPerformed
+}//GEN-LAST:event_menuItemEmpleadosActionPerformed
 
-private void jMenuItem2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+private void menuItemEdicionesActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemEdicionesActionPerformed
     addTabEdiciones();
 
-}//GEN-LAST:event_jMenuItem2ActionPerformed
+}//GEN-LAST:event_menuItemEdicionesActionPerformed
+
+private void menuItemCursosActionPerformed1(ActionEvent evt) {//GEN-FIRST:event_menuItemCursosActionPerformed1
+    addTabCurso();
+}//GEN-LAST:event_menuItemCursosActionPerformed1
+
+private void menuItemInscripcionActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemInscripcionActionPerformed
+    addTabInscripcion();
+}//GEN-LAST:event_menuItemInscripcionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,10 +185,10 @@ private void jMenuItem2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenu
     private JMenu jMenu3;
     private JMenu jMenu4;
     private JMenuBar jMenuBar1;
-    private JMenuItem jMenuItem1;
-    private JMenuItem jMenuItem2;
     private JMenuItem menuItemAulas;
     private JMenuItem menuItemCursos;
+    private JMenuItem menuItemEdiciones;
+    private JMenuItem menuItemEmpleados;
     private JMenuItem menuItemInscripcion;
     private JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
@@ -204,13 +208,13 @@ private void jMenuItem2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenu
         this.tabPanel.addTab("Empleados", new JScrollPane(tabEmpleado));
     }
 
-    private void addTabInscripcion(){
+    private void addTabInscripcion() {
         AbmInscripcion tabInscripcion = new AbmInscripcion();
         this.tabPanel.addTab("Inscripcion", new JScrollPane(tabInscripcion));
 
     }
 
-	private void addTabEdiciones() {
+    private void addTabEdiciones() {
         AbmEdicion tabEdicion = new AbmEdicion();
         this.tabPanel.addTab("Ediciones", new JScrollPane(tabEdicion));
     }
