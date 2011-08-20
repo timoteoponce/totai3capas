@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package datos;
 
 import java.io.Serializable;
@@ -16,41 +15,42 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class InscripcionPK implements Serializable {
+
     @Basic(optional = false)
     @Column(name = "ID_EDICION")
-    private int idEdicion;
+    private String idEdicion;
     @Basic(optional = false)
     @Column(name = "ID_ALUMNO")
-    private int idAlumno;
+    private Integer idAlumno;
 
     public InscripcionPK() {
     }
 
-    public InscripcionPK(int idEdicion, int idAlumno) {
+    public InscripcionPK(String idEdicion, Integer idAlumno) {
         this.idEdicion = idEdicion;
         this.idAlumno = idAlumno;
     }
 
-    public int getIdEdicion() {
+    public String getIdEdicion() {
         return idEdicion;
     }
 
-    public void setIdEdicion(int idEdicion) {
+    public void setIdEdicion(String idEdicion) {
         this.idEdicion = idEdicion;
     }
 
-    public int getIdAlumno() {
+    public Integer getIdAlumno() {
         return idAlumno;
     }
 
-    public void setIdAlumno(int idAlumno) {
+    public void setIdAlumno(Integer idAlumno) {
         this.idAlumno = idAlumno;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idEdicion;
+        hash += idEdicion.hashCode();
         hash += (int) idAlumno;
         return hash;
     }
@@ -75,5 +75,4 @@ public class InscripcionPK implements Serializable {
     public String toString() {
         return "datos.InscripcionPK[idEdicion=" + idEdicion + ", idAlumno=" + idAlumno + "]";
     }
-
 }

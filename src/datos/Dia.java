@@ -13,7 +13,7 @@ import javax.persistence.Id;
  * @author timoteo
  */
 @Entity
-public class Dia implements Serializable {
+public class Dia implements Serializable,Entidad {
 
     @Id
     private String id;

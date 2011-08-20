@@ -18,7 +18,7 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 //@Table(name="Curso")
-public class Curso implements Serializable {
+public class Curso implements Serializable,Entidad {
 
     private static final long serialVersionUID = 1L;
     @Id

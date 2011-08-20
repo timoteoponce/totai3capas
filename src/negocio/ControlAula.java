@@ -19,15 +19,7 @@ public class ControlAula {
     private ManejadorDatos manejadorDatos = ManejadorDatos.getInstance();
 
     public List<Object[]> getAulas() {
-        return toArrayList(manejadorDatos.list(Aula.class));
-    }
-
-    private List<Object[]> toArrayList(Collection<Aula> aulas) {
-        List<Object[]> arrayCursos = new ArrayList<Object[]>();
-        for (Aula aula : aulas) {
-            arrayCursos.add(aula.toArray());
-        }
-        return arrayCursos;
+        return Utils.toArrayList(manejadorDatos.list(Aula.class));
     }
 
     public String addAula(String id, Integer capacidad) {
