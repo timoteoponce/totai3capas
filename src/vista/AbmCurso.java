@@ -10,7 +10,6 @@
  */
 package vista;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -287,7 +286,6 @@ private void listaRequisitosValueChanged(javax.swing.event.ListSelectionEvent ev
 private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelRequisitoActionPerformed
     delRequisito();
 }//GEN-LAST:event_btnDelRequisitoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRequisito;
     private javax.swing.JButton btnAgregar;
@@ -325,13 +323,6 @@ private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//G
         this.modeloCursos.setDatos(controlCurso.getCursos());
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new AbmCurso());
-        frame.setVisible(true);
-    }
-
     private void addCurso() {
         Integer horas = Integer.parseInt(spinHora.getValue().toString());
         String codigo = txtCodigo.getText();
@@ -357,8 +348,7 @@ private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//G
                 this.spinHora.setValue(fila[3]);
             }
         }
-        btnAgregar.setEnabled(false);
-        btnModificar.setEnabled(true);
+        enableModificar(true);
         loadRequisitos();
     }
 
@@ -366,9 +356,14 @@ private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//G
         txtCodigo.setText("");
         txtTitulo.setText("");
         txtTema.setText("");
-        btnModificar.setEnabled(false);
-        btnAgregar.setEnabled(true);
         loadRequisitos();
+        enableModificar(false);
+    }
+
+    private void enableModificar(boolean enable) {
+        this.btnAgregar.setEnabled(!enable);
+        this.btnModificar.setEnabled(enable);
+        this.btnEliminar.setEnabled(enable);
     }
 
     private void modificarCurso() {
@@ -382,9 +377,6 @@ private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//G
             cargarDatos();
             JOptionPane.showMessageDialog(this, resultado);
         }
-
-        btnAgregar.setEnabled(false);
-        btnModificar.setEnabled(true);
     }
 
     private void delCurso() {
@@ -432,7 +424,7 @@ private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void delRequisito() {
         Object requisito = listaRequisitos.getSelectedValue();
-        if(requisito != null){
+        if (requisito != null) {
             this.modeloRequisitos.removeElement(requisito);
             this.comboCursos.addItem(requisito);
         }

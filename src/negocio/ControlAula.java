@@ -2,11 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package negocio;
 
 import datos.Aula;
 import datos.ManejadorDatos;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -14,12 +16,59 @@ import datos.ManejadorDatos;
  */
 public class ControlAula {
 
-    public static void main(String[] args){
-        ManejadorDatos manejadorDatos = ManejadorDatos.getInstance();
-        Aula aula = new Aula();
-        aula.setId("aula01");
-        aula.setCapacidad(50);
+    private ManejadorDatos manejadorDatos = ManejadorDatos.getInstance();
 
-        manejadorDatos.save(aula);
+    public List<Object[]> getAulas() {
+        return toArrayList(manejadorDatos.list(Aula.class));
+    }
+
+    private List<Object[]> toArrayList(Collection<Aula> aulas) {
+        List<Object[]> arrayCursos = new ArrayList<Object[]>();
+        for (Aula aula : aulas) {
+            arrayCursos.add(aula.toArray());
+        }
+        return arrayCursos;
+    }
+
+    public String addAula(String id, Integer capacidad) {
+        String resultado;
+        Aula aula = manejadorDatos.getById(Aula.class, id);
+        if (aula == null) {
+            aula = new Aula();
+            aula.setId(id);
+            aula.setCapacidad(capacidad);
+            manejadorDatos.save(aula);
+
+            resultado = "Aula guardada : " + id;
+        } else {
+            resultado = "Aula duplicada : " + id;
+        }
+        return resultado;
+    }
+
+    public String modificarAula(String id, Integer capacidad) {
+        String resultado;
+        Aula aula = manejadorDatos.getById(Aula.class, id);
+        if (aula == null) {
+            resultado = "Aula inexistente: " + id;
+        } else {
+            aula.setId(id);
+            aula.setCapacidad(capacidad);
+            manejadorDatos.save(aula);
+            resultado = "Aula guardada : " + id;
+        }
+        return resultado;
+    }
+
+    public String delAula(String id) {
+        String resultado;
+        Aula aula = manejadorDatos.getById(Aula.class, id);
+        if (aula.getEdiciones().isEmpty()) {
+            manejadorDatos.delete(aula);
+            resultado = "Aula eliminada : " + id;
+        } else {
+            resultado = "El aula no se puede eliminar, tiene [" + aula.getEdiciones().size() + "] ediciones activas";
+        }
+        return resultado;
     }
 }

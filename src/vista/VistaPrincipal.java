@@ -46,11 +46,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1 = new JMenu();
         menuItemCursos = new JMenuItem();
         jMenu2 = new JMenu();
+        menuItemAulas = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("totai3capas");
-        setPreferredSize(new Dimension(400, 400));
-        setSize(new Dimension(400, 400));
         getContentPane().add(tabPanel, BorderLayout.CENTER);
 
         jMenu1.setText("Cursos");
@@ -65,7 +64,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Ediciones y aulas");
+
+        menuItemAulas.setText("Editar aulas");
+        menuItemAulas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItemAulasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemAulas);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -76,6 +84,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
 private void menuItemCursosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemCursosActionPerformed
     addTabCurso();
 }//GEN-LAST:event_menuItemCursosActionPerformed
+
+private void menuItemAulasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemAulasActionPerformed
+    addTabAulas();
+}//GEN-LAST:event_menuItemAulasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,6 +129,7 @@ private void menuItemCursosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_m
     private JMenu jMenu1;
     private JMenu jMenu2;
     private JMenuBar jMenuBar1;
+    private JMenuItem menuItemAulas;
     private JMenuItem menuItemCursos;
     private JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
@@ -124,5 +137,10 @@ private void menuItemCursosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_m
     private void addTabCurso() {
         AbmCurso tabCurso = new AbmCurso();
         this.tabPanel.addTab("Cursos", new JScrollPane(tabCurso));
+    }
+
+    private void addTabAulas() {
+        AbmAula tabAula = new AbmAula();
+        this.tabPanel.addTab("Aulas", new JScrollPane(tabAula));
     }
 }

@@ -2,31 +2,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package datos;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author timoteo
  */
 @Entity
-@Table(name = "AULA")
-@NamedQueries({
-    @NamedQuery(name = "Aula.findAll", query = "SELECT a FROM Aula a"),
-    @NamedQuery(name = "Aula.findById", query = "SELECT a FROM Aula a WHERE a.id = :id"),
-    @NamedQuery(name = "Aula.findByCapacidad", query = "SELECT a FROM Aula a WHERE a.capacidad = :capacidad")})
 public class Aula implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -35,7 +29,8 @@ public class Aula implements Serializable {
     @Column(name = "CAPACIDAD")
     private Integer capacidad;
     @OneToMany(mappedBy = "aula")
-    private Set<Edicion> edicionSet;
+    @JoinTable(name = "aula_edicion")
+    private Set<Edicion> ediciones = new HashSet<Edicion>();
 
     public Aula() {
     }
@@ -60,12 +55,8 @@ public class Aula implements Serializable {
         this.capacidad = capacidad;
     }
 
-    public Set<Edicion> getEdicionSet() {
-        return edicionSet;
-    }
-
-    public void setEdicionSet(Set<Edicion> edicionSet) {
-        this.edicionSet = edicionSet;
+    public Set<Edicion> getEdiciones() {
+        return ediciones;
     }
 
     @Override
@@ -93,4 +84,7 @@ public class Aula implements Serializable {
         return "datos.Aula[id=" + id + "]";
     }
 
+    public Object[] toArray() {
+        return new Object[]{this.id, this.capacidad};
+    }
 }
