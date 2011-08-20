@@ -11,8 +11,8 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -35,7 +35,7 @@ public class Edicion implements Serializable,Entidad {
     private Curso curso;
     @ManyToOne
     private Aula aula;
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "dias_clase")
     private Set<Dia> diasClase = new HashSet<Dia>();
 

@@ -60,6 +60,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cursos");
 
+        menuItemCursos.setText("Editar cursos");
         menuItemCursos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 menuItemCursosActionPerformed1(evt);

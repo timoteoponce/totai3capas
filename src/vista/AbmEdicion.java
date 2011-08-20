@@ -34,7 +34,6 @@ public class AbmEdicion extends javax.swing.JPanel {
     private ModeloTabla modeloEdiciones = new ModeloTabla(new String[]{"id", "curso", "docente", "aula", "fechaInicio", "fechaFin"});
     private DefaultListModel modeloDiasClase = new DefaultListModel();
     private ControlEdicion controlEdicion = new ControlEdicion();
-    private ControlEmpleado controlEmpleado = new ControlEmpleado();
 
     /** Creates new form AbmEdicion */
     public AbmEdicion() {
@@ -185,8 +184,7 @@ public class AbmEdicion extends javax.swing.JPanel {
                         .addContainerGap(92, Short.MAX_VALUE)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(comboCursos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel5))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                            .add(jLabel5))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(comboDocentes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -244,10 +242,20 @@ public class AbmEdicion extends javax.swing.JPanel {
 
         btnModificar.setText("Modificar");
         btnModificar.setEnabled(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnModificar);
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminar);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -295,6 +303,14 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void tablaEdicionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEdicionesMouseClicked
     select();
 }//GEN-LAST:event_tablaEdicionesMouseClicked
+
+private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    modificar();
+}//GEN-LAST:event_btnModificarActionPerformed
+
+private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    eliminar();
+}//GEN-LAST:event_btnEliminarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddDia;
     private javax.swing.JButton btnAgregar;
@@ -362,7 +378,7 @@ private void tablaEdicionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
     private void loadComboDocentes() {
         this.comboDocentes.removeAllItems();
         String edicion = this.txtId.getText();
-        for (Object[] item : controlEmpleado.getDocentes(edicion)) {
+        for (Object[] item : controlEdicion.getDocentes(edicion)) {
             this.comboDocentes.addItem(item);
         }
     }
@@ -428,9 +444,30 @@ private void tablaEdicionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
 
     private void loadDiasClase(String edicion) {
         modeloDiasClase.clear();
-        for(Object[] item:controlEdicion.getDiasClase(edicion)){
+        for (Object[] item : controlEdicion.getDiasClase(edicion)) {
             modeloDiasClase.addElement(item[0]);
         }
+    }
+
+    private void modificar() {
+        if (dateFin.getDate().before(dateInicio.getDate()) || modeloDiasClase.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Datos invalidos");
+        } else {
+            Object[] docente = (Object[]) comboDocentes.getSelectedItem();
+            Integer docenteId = (Integer) docente[0];
+            String cursoId = comboCursos.getSelectedItem().toString();
+            String aulaId = comboAulas.getSelectedItem().toString();
+            Object[] diasClase = modeloDiasClase.toArray();
+            String resultado = controlEdicion.modificarEdicion(this.txtId.getText(), cursoId, docenteId, aulaId, dateInicio.getDate(), dateFin.getDate(), diasClase);
+            cargarDatos();
+            JOptionPane.showMessageDialog(this, resultado);
+        }
+    }
+
+    private void eliminar() {
+        String resultado = controlEdicion.delEdicion(this.txtId.getText());
+        cargarDatos();
+        JOptionPane.showMessageDialog(this, resultado);
     }
 
     private class DocenteComboRenderer extends JLabel implements ListCellRenderer {

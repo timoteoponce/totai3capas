@@ -77,15 +77,6 @@ public class ControlEmpleado {
         return resultado;
     }
 
-    public List<Object[]> getDocentes(String edicion) {
-        List<Empleado> docentes;
-        if (edicion.isEmpty()) {
-            docentes = manejadorDatos.list(Empleado.class);
-        } else {
-            docentes = manejadorDatos.list("SELECT e FROM Empleado e WHERE e.ci NOT IN (SELECT i.inscripcionPK.idAlumno from Inscripcion i "
-                    + "WHERE i.inscripcionPK.idEdicion = '" + edicion + "')");
-        }
-        return Utils.toArrayList(docentes);
-    }
+    
 
 }
