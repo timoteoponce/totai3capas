@@ -111,6 +111,11 @@ public class AbmCurso extends javax.swing.JPanel {
         jScrollPane2.setViewportView(listaRequisitos);
 
         comboCursos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCursosActionPerformed(evt);
+            }
+        });
 
         btnAddRequisito.setText("Agregar");
         btnAddRequisito.addActionListener(new java.awt.event.ActionListener() {
@@ -132,10 +137,11 @@ public class AbmCurso extends javax.swing.JPanel {
             panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, panelRequisitosLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(btnDelRequisito, 0, 0, Short.MAX_VALUE)
-                    .add(comboCursos, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(btnAddRequisito, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(comboCursos, 0, 83, Short.MAX_VALUE)
+                    .add(panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(btnDelRequisito, 0, 0, Short.MAX_VALUE)
+                        .add(btnAddRequisito, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .add(11, 11, 11)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
@@ -147,7 +153,7 @@ public class AbmCurso extends javax.swing.JPanel {
                 .add(panelRequisitosLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                     .add(panelRequisitosLayout.createSequentialGroup()
-                        .add(comboCursos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(comboCursos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnAddRequisito)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -285,6 +291,11 @@ private void listaRequisitosValueChanged(javax.swing.event.ListSelectionEvent ev
 private void btnDelRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelRequisitoActionPerformed
     delRequisito();
 }//GEN-LAST:event_btnDelRequisitoActionPerformed
+
+private void comboCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCursosActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_comboCursosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRequisito;
     private javax.swing.JButton btnAgregar;
