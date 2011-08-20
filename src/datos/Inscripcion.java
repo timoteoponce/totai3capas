@@ -73,6 +73,6 @@ public class Inscripcion implements Serializable,Entidad {
     }
 
     public Object[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Object[]{this.inscripcionPK.getIdEdicion(),this.inscripcionPK.getIdAlumno(),this.fechaInscripcion,this.nota};
     }
 }

@@ -10,8 +10,15 @@
  */
 package vista;
 
+import java.awt.Component;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.text.MaskFormatter;
 import negocio.ControlEdicion;
 import negocio.ControlInscripcion;
 
@@ -22,6 +29,9 @@ import negocio.ControlInscripcion;
 public class AbmInscripcion extends javax.swing.JPanel {
 
     /** Creates new form AbmInscripcion */
+    private ModeloTabla modeloInscripcion = new ModeloTabla(new String[]{"Edicion", "Alumno", "FechaInscripcion", "Nota"});
+    private ControlInscripcion controlInscripcion = new ControlInscripcion();
+
     public AbmInscripcion() {
         initComponents();
         init();
@@ -36,78 +46,94 @@ public class AbmInscripcion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         paneEdicion = new javax.swing.JPanel();
         comboEdicion = new javax.swing.JComboBox();
-        btnCancelar = new javax.swing.JButton();
-        btnNueva = new javax.swing.JButton();
-        panelAlumnos = new javax.swing.JPanel();
         comboAlumnos = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtNota = new javax.swing.JFormattedTextField();
+        try {
+            MaskFormatter formatter = new MaskFormatter("###");
+            this.txtNota = new JFormattedTextField(formatter);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnNueva1 = new javax.swing.JButton();
+        tablaInscripciones = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnNueva = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+
+        jLabel1.setText("Edicion:");
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 255))); // NOI18N
         setForeground(new java.awt.Color(0, 0, 0));
 
-        paneEdicion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EDICIONES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 0, 204))); // NOI18N
+        paneEdicion.setBorder(javax.swing.BorderFactory.createTitledBorder("Campos"));
 
         comboEdicion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboEdicion.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboEdicionItemStateChanged(evt);
-            }
-        });
-        comboEdicion.addActionListener(new java.awt.event.ActionListener() {
+
+        comboAlumnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setText("Alumno:");
+
+        jLabel3.setText("Nota:");
+
+        txtNota.setText("0");
+
+        jButton1.setText("Filtrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEdicionActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel4.setText("Edicion:");
 
         javax.swing.GroupLayout paneEdicionLayout = new javax.swing.GroupLayout(paneEdicion);
         paneEdicion.setLayout(paneEdicionLayout);
         paneEdicionLayout.setHorizontalGroup(
             paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneEdicionLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addComponent(comboEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(paneEdicionLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNota)
+                    .addComponent(comboAlumnos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboEdicion, 0, 242, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         paneEdicionLayout.setVerticalGroup(
             paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneEdicionLayout.createSequentialGroup()
-                .addComponent(comboEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(comboEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnCancelar.setText("Eliminar");
-
-        btnNueva.setText("Nuevo");
-        btnNueva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaActionPerformed(evt);
-            }
-        });
-
-        panelAlumnos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ALUMNOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        comboAlumnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout panelAlumnosLayout = new javax.swing.GroupLayout(panelAlumnos);
-        panelAlumnos.setLayout(panelAlumnosLayout);
-        panelAlumnosLayout.setHorizontalGroup(
-            panelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAlumnosLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelAlumnosLayout.setVerticalGroup(
-            panelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAlumnosLayout.createSequentialGroup()
-                .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaInscripciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -118,97 +144,123 @@ public class AbmInscripcion extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        btnNueva1.setText("Modificar");
-        btnNueva1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNueva1ActionPerformed(evt);
+        tablaInscripciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaInscripcionesMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(tablaInscripciones);
+
+        btnNueva.setText("Nuevo");
+        btnNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnNueva);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAgregar);
+
+        btnModificar.setText("Modificar");
+        btnModificar.setEnabled(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar);
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addComponent(paneEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(21, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(paneEdicion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(btnNueva)
-                .addGap(41, 41, 41)
-                .addComponent(btnNueva1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(paneEdicion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(paneEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNueva)
-                    .addComponent(btnNueva1)
-                    .addComponent(btnCancelar))
-                .addGap(93, 93, 93))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
-        addInscipcion();
+        nuevo();
     }//GEN-LAST:event_btnNuevaActionPerformed
 
-    private void btnNueva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNueva1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNueva1ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        modificar();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void comboEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEdicionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboEdicionActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        addInscripcion();
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void comboEdicionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEdicionItemStateChanged
+    private void tablaInscripcionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaInscripcionesMouseClicked
+        selectInscripcion();
+    }//GEN-LAST:event_tablaInscripcionesMouseClicked
 
-       /*  Object dia = comboDias.getSelectedItem();
-        if (!modeloDiasClase.contains(dia)) {
-            modeloDiasClase.addElement(dia);
-        }*/
-        Object edicion = comboEdicion.getSelectedItem();
-        if (edicion != null){
-            loadAlumnosNoIscritos((String) edicion);
-        } else
-            JOptionPane.showMessageDialog(this,"Debe seleccionar un Grupo");
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        delInscripcion();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
-        
-    }//GEN-LAST:event_comboEdicionItemStateChanged
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        selectEdicion();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNueva;
-    private javax.swing.JButton btnNueva1;
     private javax.swing.JComboBox comboAlumnos;
     private javax.swing.JComboBox comboEdicion;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel paneEdicion;
-    private javax.swing.JPanel panelAlumnos;
+    private javax.swing.JTable tablaInscripciones;
+    private javax.swing.JFormattedTextField txtNota;
     // End of variables declaration//GEN-END:variables
 
-    private void addInscipcion() {
+    private void addInscripcion() {
+        String edicion = comboEdicion.getSelectedItem().toString();
+        Object[] alumno = (Object[]) comboAlumnos.getSelectedItem();
+        Integer alumnoId = Integer.parseInt(alumno[0].toString());
+        String resultado = controlInscripcion.addInscripcion(edicion, alumnoId, new Date(), 0);
+        comboEdicion.setSelectedItem("");
+        cargarDatos();
+        JOptionPane.showMessageDialog(this, resultado);
     }
 
     private void loadEdiciones() {
@@ -216,25 +268,103 @@ public class AbmInscripcion extends javax.swing.JPanel {
         ControlEdicion controlEdicion = new ControlEdicion();
 
         List<Object[]> ediciones = controlEdicion.getEdiciones();
+        this.comboEdicion.addItem("");
         for (Object[] item : ediciones) {
             this.comboEdicion.addItem(item[0]);
         }
     }
 // Carga los alumnos no inscritos en una deteminada edcion
-    private void loadAlumnosNoIscritos(String edicion){
+
+    private void loadAlumnosNoIscritos(String edicion) {
         this.comboAlumnos.removeAllItems();
-        ControlInscripcion controlInscripcion = new ControlInscripcion();
         List<Object[]> alumNoInscritos = controlInscripcion.getNoInscritos(edicion);
         for (Object[] item : alumNoInscritos) {
-            this.comboAlumnos.addItem(item[0]);
+            this.comboAlumnos.addItem(item);
         }
-
-    }
-    private void loadAlumnosInscritos(){
-
     }
 
     private void init() {
+        this.comboAlumnos.setRenderer(new AlumnoRenderer());
+        this.comboAlumnos.removeAllItems();
+        this.tablaInscripciones.setModel(modeloInscripcion);
         loadEdiciones();
+        cargarDatos();        
+    }
+
+    private void selectEdicion() {
+        Object edicion = comboEdicion.getSelectedItem();
+        if (edicion != null) {
+            cargarDatos();
+        }
+    }
+
+    private void cargarDatos() {
+        String edicion = comboEdicion.getSelectedItem() + "";
+        this.modeloInscripcion.setDatos(controlInscripcion.getInscripciones(edicion));
+        loadAlumnosNoIscritos(edicion);
+    }
+
+    private void nuevo() {
+        enableModificar(false);
+        comboEdicion.setSelectedItem("");
+    }
+
+    private void enableModificar(boolean enable) {
+        this.btnAgregar.setEnabled(!enable);
+        this.btnModificar.setEnabled(enable);
+        this.btnEliminar.setEnabled(enable);
+    }
+
+    private void selectInscripcion() {
+        int index = tablaInscripciones.getSelectedRow();
+        if (index > -1) {
+            enableModificar(true);
+            Object[] inscripcion = modeloInscripcion.getRow(index);
+            this.comboEdicion.setSelectedItem(inscripcion[0]);
+            selectAlumno((Integer) inscripcion[1]);
+            this.txtNota.setValue(inscripcion[3].toString());
+        }
+    }
+
+    private void selectAlumno(Integer idAlumno) {
+        for (int i = 0; i < comboAlumnos.getItemCount(); i++) {
+            Object[] alumno = (Object[]) comboAlumnos.getItemAt(i);            
+            if (idAlumno.toString().equals(alumno[0].toString())) {
+                this.comboAlumnos.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
+    private void modificar() {
+        String edicion = comboEdicion.getSelectedItem().toString();
+        Object[] alumno = (Object[]) comboAlumnos.getSelectedItem();
+        Integer alumnoId = Integer.parseInt(alumno[0].toString());
+        Integer nota = Integer.parseInt(txtNota.getText().trim());
+        String resultado = controlInscripcion.modificarInscripcion(edicion, alumnoId, nota);
+        comboEdicion.setSelectedItem("");
+        cargarDatos();
+        JOptionPane.showMessageDialog(this, resultado);
+    }
+
+    private void delInscripcion() {
+        String edicion = comboEdicion.getSelectedItem().toString();
+        Object[] alumno = (Object[]) comboAlumnos.getSelectedItem();
+        Integer alumnoId = Integer.parseInt(alumno[0].toString());
+        String resultado = controlInscripcion.delInscripcion(edicion, alumnoId);
+        comboEdicion.setSelectedItem("");
+        cargarDatos();
+        JOptionPane.showMessageDialog(this, resultado);
+    }
+
+    private class AlumnoRenderer extends JLabel implements ListCellRenderer {
+
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            if (value != null) {
+                Object[] alumno = (Object[]) value;
+                this.setText(alumno[0] + " - " + alumno[1]);
+            }
+            return this;
+        }
     }
 }

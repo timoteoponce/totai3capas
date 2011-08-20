@@ -48,31 +48,28 @@ public class InscripcionPK implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += idEdicion.hashCode();
-        hash += (int) idAlumno;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InscripcionPK)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        InscripcionPK other = (InscripcionPK) object;
-        if (this.idEdicion != other.idEdicion) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (this.idAlumno != other.idAlumno) {
+        final InscripcionPK other = (InscripcionPK) obj;
+        if ((this.idEdicion == null) ? (other.idEdicion != null) : !this.idEdicion.equals(other.idEdicion)) {
+            return false;
+        }
+        if (this.idAlumno != other.idAlumno && (this.idAlumno == null || !this.idAlumno.equals(other.idAlumno))) {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
-        return "datos.InscripcionPK[idEdicion=" + idEdicion + ", idAlumno=" + idAlumno + "]";
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + (this.idEdicion != null ? this.idEdicion.hashCode() : 0);
+        hash = 41 * hash + (this.idAlumno != null ? this.idAlumno.hashCode() : 0);
+        return hash;
     }
 }
