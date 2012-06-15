@@ -96,8 +96,7 @@ public class ControlInscripcion {
     }
 
     private Inscripcion getInscripcion(String idEdicion, Integer idAlumno) {
-        List<Inscripcion> inscripciones = manejadorDatos.list(Inscripcion.class, " WHERE t.inscripcionPK.idEdicion = '" + idEdicion + "' AND t.inscripcionPK.idAlumno = " + idAlumno);
-        System.out.println(" WHERE t.inscripcionPK.idEdicion = '" + idEdicion + "' AND t.inscripcionPK.idAlumno = " + idAlumno + " : "+inscripciones.size());
+        List<Inscripcion> inscripciones = manejadorDatos.list(Inscripcion.class, " WHERE t.inscripcionPK.idEdicion = '" + idEdicion + "' AND t.inscripcionPK.idAlumno = " + idAlumno);        
         Inscripcion inscripcion = null;
         
         if (!inscripciones.isEmpty()) {
